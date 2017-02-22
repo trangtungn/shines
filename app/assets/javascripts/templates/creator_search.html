@@ -1,0 +1,62 @@
+<header>
+    <h1 class="h2">Creator Search</h1>
+</header>
+<section class="search-form">
+    <h1 class="searchedFor" ng-if="searchedFor">
+        <small>Searched for:</small>
+        {{ searchedFor }}
+    </h1>
+    <form>
+        <label for="search.keywords" class="sr-only">Keywords</label>
+        <input type="text"
+               name="keywords"
+               class="form-control input-lg"
+               placeholder="First Name, Last Name, or Email Address"
+               ng-change="search(keywords)"
+               ng-model="keywords">
+    </form>
+</section>
+
+<section class="search-results" ng-if="creators.length > 0">
+    <header>
+        <h1 class="h3">Results</h1>
+    </header>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="" ng-click="previousPage()">&larr; Previous</a>
+            </li>
+            <li class="next">
+                <a href="" ng-click="nextPage()">Next &rarr;</a>
+            </li>
+        </ul>
+    </nav>
+    <ol class="list-group">
+        <li class="list-group-item clearfix" ng-repeat="creator in creators">
+            <h3 class="pull-right">
+                <small class="text-uppercase">Joined</small>
+                {{ creator.created_at | date }}
+            </h3>
+            <h2 class="h3">
+                {{ creator.first_name }} {{ creator.last_name }}
+                <small>{{ creator.username }}</small>
+            </h2>
+            <div class="pull-right">
+                <button class="btn btn-small btn-primary" ng-click="viewDetails(creator)">
+                    View Details…
+                </button>
+            </div>
+            <h4>{{ creator.email }}</h4>
+        </li>
+    </ol>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="" ng-click="previousPage()">&larr; Previous</a>
+            </li>
+            <li class="next">
+                <a href="" ng-click="nextPage()">Next &rarr;</a>
+            </li>
+        </ul>
+    </nav>
+</section>
