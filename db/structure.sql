@@ -40,6 +40,17 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 SET search_path = public, pg_catalog;
 
 --
+-- Name: creator_status; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE creator_status AS ENUM (
+    'signed_up',
+    'verified',
+    'inactive'
+);
+
+
+--
 -- Name: func_refresh_creator_details(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -58,6 +69,71 @@ CREATE FUNCTION func_refresh_creator_details() RETURNS trigger
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: account_campaigns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE account_campaigns (
+    id integer NOT NULL,
+    account_id integer,
+    campaign_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: account_campaigns_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE account_campaigns_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: account_campaigns_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE account_campaigns_id_seq OWNED BY account_campaigns.id;
+
+
+--
+-- Name: accounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE accounts (
+    id integer NOT NULL,
+    creator_id integer,
+    type character varying,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE accounts_id_seq OWNED BY accounts.id;
+
 
 --
 -- Name: addresses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
@@ -104,6 +180,38 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: campaigns; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE campaigns (
+    id integer NOT NULL,
+    user_id integer,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: campaigns_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE campaigns_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: campaigns_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE campaigns_id_seq OWNED BY campaigns.id;
+
+
+--
 -- Name: creators; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -115,7 +223,8 @@ CREATE TABLE creators (
     username character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    insights json DEFAULT '{}'::json
+    insights json DEFAULT '{}'::json,
+    status creator_status DEFAULT 'signed_up'::creator_status NOT NULL
 );
 
 
@@ -315,7 +424,28 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY account_campaigns ALTER COLUMN id SET DEFAULT nextval('account_campaigns_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY accounts ALTER COLUMN id SET DEFAULT nextval('accounts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY campaigns ALTER COLUMN id SET DEFAULT nextval('campaigns_id_seq'::regclass);
 
 
 --
@@ -354,6 +484,22 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Name: account_campaigns_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY account_campaigns
+    ADD CONSTRAINT account_campaigns_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY accounts
+    ADD CONSTRAINT accounts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -367,6 +513,14 @@ ALTER TABLE ONLY addresses
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: campaigns_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY campaigns
+    ADD CONSTRAINT campaigns_pkey PRIMARY KEY (id);
 
 
 --
@@ -558,6 +712,11 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170213195513'),
 ('20170213195815'),
 ('20170213200143'),
-('20170213201301');
+('20170213201301'),
+('20170213202323'),
+('20170214032027'),
+('20170322042530'),
+('20170322042906'),
+('20170322042945');
 
 
