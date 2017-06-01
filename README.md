@@ -1,0 +1,2 @@
+# shines
+Learning Rails
