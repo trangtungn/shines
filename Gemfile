@@ -7,7 +7,6 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# ruby '2.3.1'
 gem 'rails', '~> 5.0.1'
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server
@@ -103,4 +102,3 @@ group :test do
   gem 'poltergeist'
   gem 'phantomjs', :require => 'phantomjs/poltergeist'
 end
-
