@@ -82,11 +82,6 @@ GEM
       kaminari (>= 1.0)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
-    angular-rails-templates (1.3.0)
-      railties (>= 5.0, < 8.1)
-      sprockets (>= 3.0, < 5)
-      sprockets-rails
-      tilt
     ast (2.4.2)
     awesome_print (1.7.0)
     base64 (0.2.0)
@@ -100,7 +95,6 @@ GEM
     bindex (0.8.1)
     bourbon (7.3.0)
       thor (~> 1.0)
-    bower-rails (0.12.0)
     builder (3.3.0)
     byebug (11.1.3)
     capybara (3.40.0)
@@ -116,13 +110,6 @@ GEM
       logger (~> 1.5)
     cliver (0.3.2)
     coderay (1.1.3)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
@@ -143,7 +130,6 @@ GEM
     drb (2.2.1)
     erubi (1.13.1)
     erubis (2.7.0)
-    execjs (2.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -385,17 +371,6 @@ GEM
       racc (~> 1.5)
       sexp_processor (~> 4.16)
     rubyzip (2.4.1)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.1.0)
-      railties (>= 5.2.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -424,6 +399,10 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stringio (3.1.2)
+    tailwindcss-rails (4.0.0)
+      railties (>= 7.0.0)
+      tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.0.6)
     teaspoon (1.4.0)
       railties (>= 5.0)
     teaspoon-jasmine (2.9.1)
@@ -434,8 +413,6 @@ GEM
     timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.1)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -461,14 +438,11 @@ PLATFORMS
 
 DEPENDENCIES
   administrate
-  angular-rails-templates
   awesome_print (~> 1.7.0)
   better_errors
   bourbon
-  bower-rails
   byebug
   capybara
-  coffee-rails (~> 4.2)
   database_cleaner
   devise
   factory_bot_rails
@@ -499,13 +473,11 @@ DEPENDENCIES
   rb-inotify
   rspec-rails
   rubocop
-  sass-rails (~> 5.0)
   selenium-webdriver
   spring
-  sprockets
+  tailwindcss-rails
   teaspoon-jasmine
   tzinfo-data
-  uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
 
 BUNDLED WITH
